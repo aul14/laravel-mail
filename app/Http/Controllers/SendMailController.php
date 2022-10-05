@@ -16,7 +16,11 @@ class SendMailController extends Controller
             'url' => 'https://aul14.github.io/',
         ];
 
-        Mail::to($email)->send(new FirstMail($data));
+        $delay = now()->addMinutes(1);
+
+        // Mail::to($email)->send(new FirstMail($data));
+        // Mail::to($email)->queue(new FirstMail($data));
+        Mail::to($email)->later($delay, new FirstMail($data));
 
         return 'email send successfully!';
     }
